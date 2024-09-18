@@ -20,7 +20,7 @@ import io.github.resilience4j.retry.annotation.Retry;
 @RestController
 public class CurrencyExchangeController {
 	private static final Logger logger = LoggerFactory.getLogger(CurrencyExchangeController.class);
-
+	
 	@Autowired
 	private CurrencyExchangeRepository currencyExchangeRepository;
 
@@ -29,6 +29,7 @@ public class CurrencyExchangeController {
 	
 	@GetMapping("/currency-exchange/from/{from}/to/{to}")
 	public CurrencyExchangeBean retrieveExchangeValue(@PathVariable String from, @PathVariable String to) {
+		logger.info("retrieveExchangeValue called with : {} , {} ", from, to);
 		
 		var port = environment.getProperty("local.server.port");
 		var currencyExchange = this.currencyExchangeRepository.findByFromAndTo(from, to);
